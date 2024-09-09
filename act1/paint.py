@@ -1,5 +1,8 @@
+
+#Import libraries
 from turtle import *
 from freegames import vector
+
 
 def line(start, end):
     "Draw line from start to end."
