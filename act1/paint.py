@@ -3,7 +3,7 @@
 from turtle import *
 from freegames import vector
 
-
+#Funcion de linea
 def line(start, end):
     "Draw line from start to end."
     up()
