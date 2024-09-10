@@ -22,8 +22,21 @@ def square(start, end):
     end_fill()
 
 def circle(start, end):
-    "Draw circle from start to end."
-    pass  # TODO
+    """Draw circle from start to end."""
+    #Se mueve el cursor de turtle a la posición inicial (start.x, start.y) con up() y goto() para no dibujar durante el movimiento.
+    up()
+    goto(start.x, start.y)
+    down()
+
+    # Calcular el radio como la distancia entre los puntos start y end
+    radius = ((end.x - start.x)**2 + (end.y - start.y)**2)**0.5
+
+    # Dibujar el círculo con el radio calculado
+    begin_fill()
+    # llenar el circulo con el color actual
+    turtle.circle(radius)
+    #se termina de llenar el circulo
+    end_fill()
 
 def rectangle(start, end):
     "Draw rectangle from start to end."
@@ -59,6 +72,8 @@ onkey(lambda: color('white'), 'W')
 onkey(lambda: color('green'), 'G')
 onkey(lambda: color('blue'), 'B')
 onkey(lambda: color('red'), 'R')
+#creamos el color amarillo  conectado a la tecla "Y"
+onkey(lambda: color('yellow'), 'Y')
 onkey(lambda: store('shape', line), 'l')
 onkey(lambda: store('shape', square), 's')
 onkey(lambda: store('shape', circle), 'c')
