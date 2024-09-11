@@ -13,8 +13,9 @@ def tap(x, y):
     if not inside(ball):
         ball.x = -199
         ball.y = -199
-        speed.x = (x + 200) / 25
-        speed.y = (y + 200) / 25
+        #Se aumenta la velocidad del proyectil (de dividir entre 25 a 10)
+        speed.x = (x + 200) / 10
+        speed.y = (y + 200) / 10
 
 
 def inside(xy):
@@ -43,25 +44,28 @@ def move():
         y = randrange(-150, 150)
         target = vector(200, y)
         targets.append(target)
-
+    #Aumentar la velocidad de los objetivos
     for target in targets:
-        target.x -= 0.5
+        target.x -= 3 #(de 0.5 a 3)
 
     if inside(ball):
-        speed.y -= 0.35
+        speed.y -= 0.35 #(de 0.35 a 0.8, mayor gravedad)
         ball.move(speed)
 
     dupe = targets.copy()
     targets.clear()
 
     for target in dupe:
-        # En lugar de eliminar el target fuera de la pantalla, se reposiciona
-        if not inside(target):
-            target.x = 200  # Reposiciona en el borde derecho
-        targets.append(target)
+        #Si la cannon ball no ha golpeado un objetivo, se añade a la lista de los targets
+        if abs(target-ball) > 20:
+            targets.append(target)
+        #objetivos que han salido de la pantalla
+        else:
+            if not inside(target):
+                target.x = 220  # Reposiciona en el borde derecho pero sigue en la lista
 
     draw()
-    ontimer(move, 50)
+    ontimer(move, 15) #frecuencia de actualizacion aumentada (50-30)
 
 
 setup(420, 420, 370, 0)
