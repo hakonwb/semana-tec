@@ -55,15 +55,12 @@ def move():
     targets.clear()
 
     for target in dupe:
-        if abs(target - ball) > 13:
-            targets.append(target)
+        # En lugar de eliminar el target fuera de la pantalla, se reposiciona
+        if not inside(target):
+            target.x = 200  # Reposiciona en el borde derecho
+        targets.append(target)
 
     draw()
-
-    for target in targets:
-        if not inside(target):
-            return
-
     ontimer(move, 50)
 
 
