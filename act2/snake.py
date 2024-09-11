@@ -26,6 +26,20 @@ def inside(head):
     return -200 < head.x < 190 and -200 < head.y < 190
 
 
+def move_food():
+    #Mueve la comida de manera aleatoria, un paso a la vez asegurando que este en los limites de la ventana
+    #Posibles direcciones de movimiento
+    directions = [vector(10,0), vector(-10,0), vector(0,10), vector(0, -10)]
+    move_direction = choice(directions)
+    new_position = food + move_direction
+
+    #Condicion que checa si la nueva posicion se encuentra en el rango
+    if inside(new_position):
+        food.move(move_direction)
+
+
+
+
 def move():
     """Move snake forward one segment."""
     head = snake[-1].copy()
@@ -53,6 +67,11 @@ def move():
 
     square(food.x, food.y, 9, food_color)
     update()
+    #Funcion que mueve la comida random
+    move_food()
+
+
+
     ontimer(move, 100)
 
 

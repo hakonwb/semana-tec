@@ -125,15 +125,29 @@ def move():
         if valid(point + course):
             point.move(course)
         else:
-            options = [
-                vector(5, 0),
-                vector(-5, 0),
-                vector(0, 5),
-                vector(0, -5),
-            ]
-            plan = choice(options)
-            course.x = plan.x
-            course.y = plan.y
+            #Crear vector de posibilidades
+            options = []
+            
+            #Opciones que acercan al fantasma a pacman si son viables
+            if pacman.x > point.x and valid(point + vector(10,0)):
+                options.append(vector(10,0)) #derecha
+            if pacman.x < point.x and valid(point + vector(-10,0)):
+                options.append(vector(-10,0)) #izquierda
+            if pacman.y > point.y and valid(point + vector(0,10)):
+                options.append(vector(0,10)) #arriba
+            if pacman.y < point.y and valid(point + vector(0,-10)):
+                options.append(vector(0,-10)) #abajo
+
+            #Si hay opciones validas, elegor una, si no irse al azar
+            if options:
+                plan = choice(options)
+                course.x = plan.x
+                course.y = plan.y
+            else:
+                #Moverse aleatoriamente
+                plan = choice([vector(10, 0), vector(-10, 0), vector(0, 10), vector(0, -10)])
+                course.x = plan.x
+                course.y = plan.y
 
         up()
         goto(point.x + 10, point.y + 10)
@@ -141,6 +155,8 @@ def move():
 
     update()
 
+
+    #Comprobar si algun fantasma ha alcanzado a pacman
     for point, course in ghosts:
         if abs(pacman - point) < 20:
             return

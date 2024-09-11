@@ -1,3 +1,5 @@
+
+#Librerias
 from turtle import *
 from freegames import vector
 
@@ -43,11 +45,30 @@ def draw_circle(start, end):
     # terminamos de crear y rellenar el circulo con el color actual
 def rectangle(start, end):
     "Draw rectangle from start to end."
-    pass  # TODO
+    up()
+    goto(start.x,start.y)
+    down()
+    begin_fill()
+    #Dibujar rectangulo
+    for count in range(2):
+        forward(end.x - start.x)
+        left(90)
+        forward(end.y - start.y)
+        left(90)
+
+    end_fill()
 
 def triangle(start, end):
     "Draw triangle from start to end."
-    pass  # TODO
+    up()
+    goto(start.x, start.y)
+    down()
+    begin_fill()
+    #For que dibuja un triángulo
+    for count in range(3):
+        forward(end.x-start.x)
+        left(120)
+    end_fill()
 
 def tap(x, y):
     "Store starting point or draw shape."
