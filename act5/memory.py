@@ -1,16 +1,21 @@
-from random import *
+from random import shuffle
 from turtle import *
 
 from freegames import path
 
 car = path('car.gif')
-tiles = list(range(32)) * 2  # Lista de 64 tiles (32 duplicados para hacer pares)
-state = {'mark': None, 'taps': 0}  # Se añade un contador de taps al estado
+letras = [
+    'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 
+    'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 
+    'U', 'V', 'W', 'X', 'Y', 'Z', '!', '@', '#', '$', 
+    '%', '&'
+]
+tiles = letras * 2  # Ahora tenemos 32 letras, multiplicadas por 2 para 64 tiles
+state = {'mark': None, 'taps': 0}  # Añadimos un contador de taps al estado
 hide = [True] * 64  # Lista que representa si los cuadros están ocultos o no
 
-
 def square(x, y):
-    """Draw white square with black outline at (x, y)."""
+    """Dibuja un cuadrado blanco con borde negro en (x, y)."""
     up()
     goto(x, y)
     down()
@@ -21,21 +26,32 @@ def square(x, y):
         left(90)
     end_fill()
 
-
 def index(x, y):
-    """Convert (x, y) coordinates to tiles index."""
-    return int((x + 200) // 50 + ((y + 200) // 50) * 8)
-
+    """Convierte las coordenadas (x, y) en índice de tiles."""
+    col = int((x + 200) // 50)
+    row = int((y + 200) // 50)
+    
+    # Asegúrate de que las coordenadas estén dentro del rango válido
+    if 0 <= col < 8 and 0 <= row < 8:
+        return col + row * 8
+    return -1  # Retorna un valor inválido si está fuera de los límites
 
 def xy(count):
-    """Convert tiles count to (x, y) coordinates."""
+    """Convierte el índice de tiles en coordenadas (x, y)."""
     return (count % 8) * 50 - 200, (count // 8) * 50 - 200
 
-
 def tap(x, y):
-    """Update mark and hidden tiles based on tap."""
+    """Actualiza la marca y los tiles ocultos basado en el tap."""
     spot = index(x, y)  # Calcula el índice del cuadro donde se hizo clic
+    if spot == -1 or spot >= len(tiles):
+        return  # Si el índice es inválido o fuera de rango, no hace nada
+
     mark = state['mark']  # Recupera la marca actual
+
+    # Verifica que `mark` también esté dentro del rango antes de usarlo
+    if mark is not None and (mark < 0 or mark >= len(tiles)):
+        state['mark'] = None  # Resetea `mark` si está fuera de rango
+        return
 
     state['taps'] += 1  # Incrementa el número de taps (clics)
 
@@ -47,9 +63,8 @@ def tap(x, y):
         hide[mark] = False  # Destapa el tile que coincidió
         state['mark'] = None  # Reinicia la marca
 
-
 def draw():
-    """Draw image and tiles."""
+    """Dibuja la imagen y los tiles."""
     clear()
     goto(0, 0)
     shape(car)
@@ -62,13 +77,13 @@ def draw():
 
     mark = state['mark']  # Recupera la marca actual
 
-    # Dibuja el número del tile si está marcado y aún está oculto
-    if mark is not None and hide[mark]:
+    # Verifica que el índice de la marca esté dentro del rango antes de dibujar
+    if mark is not None and 0 <= mark < len(tiles) and hide[mark]:
         x, y = xy(mark)
         up()
-        goto(x + 2, y)
+        goto(x + 25, y + 5)  # Ajusta para centrar la letra
         color('black')
-        write(tiles[mark], font=('Arial', 30, 'normal'))
+        write(tiles[mark], font=('Arial', 30, 'normal'), align='center')
 
     # Dibuja el número de taps (clics) en la esquina inferior izquierda
     up()
@@ -84,7 +99,6 @@ def draw():
 
     update()
     ontimer(draw, 100)  # Llama a la función de dibujar cada 100 milisegundos
-
 
 # Mezcla las piezas y configura la pantalla
 shuffle(tiles)
