@@ -41,11 +41,3 @@ python nombre_del_juego.py
 ```
 
 Reemplaza `nombre_del_juego.py` con el archivo que deseas jugar (por ejemplo, `snake.py`).
-
-## Contribución
-
-Si deseas contribuir, siéntete libre de hacer un fork del repositorio, hacer tus cambios y enviar un pull request. ¡Cualquier mejora o nuevo juego es bienvenido!
-
-## Licencia
-
-Este proyecto está bajo la licencia MIT - consulta el archivo LICENSE.md para más detalles.
