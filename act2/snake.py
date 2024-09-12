@@ -9,39 +9,37 @@ colors = ['blue', 'green', 'yellow', 'purple', 'orange']
 snake_color = choice(colors)
 food_color = choice([color for color in colors if color != snake_color])
 
-
 food = vector(0, 0)
 snake = [vector(10, 0)]
 aim = vector(0, -10)
 
+# Inicializa la velocidad de la comida
+food_speed = 400
 
 def change(x, y):
-    """Change snake direction."""
+    """Cambia la dirección de la serpiente."""
     aim.x = x
     aim.y = y
 
-
 def inside(head):
-    """Return True if head inside boundaries."""
+    """Devuelve True si la cabeza está dentro de los límites."""
     return -200 < head.x < 190 and -200 < head.y < 190
 
-
 def move_food():
-    #Mueve la comida de manera aleatoria, un paso a la vez asegurando que este en los limites de la ventana
-    #Posibles direcciones de movimiento
-    directions = [vector(10,0), vector(-10,0), vector(0,10), vector(0, -10)]
+    """Mueve la comida de manera aleatoria."""
+    directions = [vector(10, 0), vector(-10, 0), vector(0, 10), vector(0, -10)]
     move_direction = choice(directions)
     new_position = food + move_direction
 
-    #Condicion que checa si la nueva posicion se encuentra en el rango
     if inside(new_position):
         food.move(move_direction)
-
-
-
+    
+    # Mueve la comida otra vez después de 'food_speed' milisegundos
+    ontimer(move_food, food_speed)
 
 def move():
-    """Move snake forward one segment."""
+    """Mueve la serpiente hacia adelante un segmento."""
+    global food_speed  # Declarar food_speed como global para modificarla
     head = snake[-1].copy()
     head.move(aim)
 
@@ -56,24 +54,22 @@ def move():
         print('Snake:', len(snake))
         food.x = randrange(-15, 15) * 10
         food.y = randrange(-15, 15) * 10
+        
+        # Aumenta la velocidad de la comida (la hace más rápida)
+        food_speed -= 20  # Disminuye la espera en 20 milisegundos
+
     else:
         snake.pop(0)
 
     clear()
 
     for body in snake:
-        #agregamos los colores que definimos tanto para la serpiente como para la comida
         square(body.x, body.y, 9, snake_color)
 
     square(food.x, food.y, 9, food_color)
     update()
-    #Funcion que mueve la comida random
-    move_food()
-
-
 
     ontimer(move, 100)
-
 
 setup(420, 420, 370, 0)
 hideturtle()
@@ -84,4 +80,5 @@ onkey(lambda: change(-10, 0), 'Left')
 onkey(lambda: change(0, 10), 'Up')
 onkey(lambda: change(0, -10), 'Down')
 move()
+move_food()  # Inicia el movimiento de la comida
 done()
