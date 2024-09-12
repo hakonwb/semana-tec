@@ -1,28 +1,23 @@
 # Juegos en Python
 
-Este repositorio contiene una colección de juegos clásicos desarrollados en Python utilizando la biblioteca `turtle` y `freegames`. Cada juego es un ejercicio perfecto para aprender conceptos básicos de programación, gráficos y lógica en Python.
+Este repositorio contiene una colección de juegos clásicos desarrollados en Python utilizando la biblioteca `turtle` y `freegames`.
 
 ## Juegos Incluidos
 
 1. **Snake**:
    - Un juego clásico donde controlas una serpiente para comer alimentos y crecer, evitando chocar con las paredes o contigo mismo.
-   - **Ejercicios**:
-     1. ¿Cómo hacer que la serpiente sea más rápida o más lenta?
-     2. ¿Cómo podrías hacer que la serpiente pase por los bordes y aparezca en el lado opuesto?
-     3. ¿Cómo moverías la comida de la serpiente?
-     4. Cambia la respuesta de la serpiente para que responda a clics del ratón.
 
 2. **Paint**:
-   - Un sencillo programa de dibujo que permite trazar líneas, círculos, cuadrados, rectángulos y triángulos con el ratón y teclas específicas.
+   - Un sencillo programa de dibujo que permite trazar líneas, círculos, cuadrados, rectángulos y triángulos de diferentes colores con el mouse y teclas específicas.
 
 3. **Pacman**:
-   - Controla a Pacman para comer todos los puntos mientras evitas a los fantasmas. Los fantasmas tienen inteligencia básica para acercarse a Pacman.
+   - Controla a Pacman para comer todos los puntos mientras evitas a los fantasmas. 
 
 4. **Cannon**:
-   - Lanza proyectiles desde un cañón hacia objetivos en movimiento. Ajusta la velocidad y dirección de los disparos para acertar.
+   - Lanza proyectiles desde un cañón hacia objetivos en movimiento.
 
 5. **Memory**:
-   - Un juego de memoria donde debes destapar pares de cartas que coincidan. Desafía tu memoria mientras buscas todas las coincidencias.
+   - Un juego de memoria donde debes destapar pares de letras o símbolos que coincidan. 
 
 ## Instalación
 
