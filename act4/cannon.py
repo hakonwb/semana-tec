@@ -60,9 +60,8 @@ def move():
         if abs(target-ball) > 20:
             targets.append(target)
         #objetivos que han salido de la pantalla
-        else:
-            if not inside(target):
-                target.x = 220  # Reposiciona en el borde derecho pero sigue en la lista
+        if not inside(target):
+            target.x = 200  # Reposiciona en el borde derecho pero sigue en la lista
 
     draw()
     ontimer(move, 15) #frecuencia de actualizacion aumentada (50-30)
